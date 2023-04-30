@@ -23,7 +23,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: const Text('COVID-19')),
+      appBar: AppBar(
+        title: const Text('Covid-19 Tracker',
+            style: TextStyle(color: Colors.black, fontSize: 20)),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: _buildListCovid(),
     );
   }
