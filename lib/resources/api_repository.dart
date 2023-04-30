@@ -19,4 +19,7 @@ class ApiRepository {
   }
 }
 
-class NetworkError extends Error {}
+class NetworkError extends Error {
+  final String message;
+  NetworkError(this.message);
+}
