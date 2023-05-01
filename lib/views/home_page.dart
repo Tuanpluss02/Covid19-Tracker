@@ -1,7 +1,9 @@
-import 'package:covid19_tracker/bloc/covid_bloc.dart';
+import 'package:covid19_tracker/bloc/covid_bloc/covid_bloc.dart';
+import 'package:covid19_tracker/bloc/language_bloc/language_bloc.dart';
 import 'package:covid19_tracker/model/covid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rive/rive.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,12 +13,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final languageBloc = LanguageBloc();
   final CovidBloc _covidBloc = CovidBloc();
-
+  var selectedLanguage = 'English';
   @override
   void initState() {
     _covidBloc.add(FetchCovid());
+    languageBloc.add(const ChangeLanguageToEn());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _covidBloc.close();
+    languageBloc.close();
+    super.dispose();
   }
 
   @override
@@ -26,9 +37,54 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Covid-19 Tracker',
             style: TextStyle(color: Colors.black, fontSize: 20)),
-        centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
+        actions: [
+          BlocProvider(
+            create: (context) => LanguageBloc(),
+            child: BlocListener<LanguageBloc, LanguageState>(
+              listener: (context, state) {
+                if (state is LanguageChanged) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Language changed to ${state.locale}'),
+                    ),
+                  );
+                }
+              },
+              child: BlocBuilder<LanguageBloc, LanguageState>(
+                builder: (context, state) {
+                  return TextButton.icon(
+                      onPressed: () {
+                        debugPrint(state.toString());
+                        if (state is LanguageInitial) {
+                          debugPrint(state.locale.languageCode.toString());
+                          if (state.locale.languageCode == 'en') {
+                            languageBloc.add(const ChangeLanguageToVi());
+                          } else {
+                            languageBloc.add(const ChangeLanguageToEn());
+                          }
+                        }
+                        // languageBloc
+                        //     .add(const ChangeLanguage(Locale('vi', 'VN')));
+                      },
+                      icon: const Icon(
+                        Icons.language,
+                        color: Colors.black,
+                      ),
+                      label: Text(
+                        state is LanguageChanged
+                            ? state.locale.languageCode == 'en'
+                                ? 'Tiếng Việt'
+                                : 'English'
+                            : 'English',
+                        style: const TextStyle(color: Colors.black),
+                      ));
+                },
+              ),
+            ),
+          ),
+        ],
       ),
       body: _buildListCovid(),
     );
@@ -52,9 +108,7 @@ class _HomePageState extends State<HomePage> {
           },
           child: BlocBuilder<CovidBloc, CovidState>(
             builder: (context, state) {
-              if (state is CovidInitial) {
-                return _buildLoading();
-              } else if (state is CovidLoading) {
+              if (state is CovidInitial || state is CovidLoading) {
                 return _buildLoading();
               } else if (state is CovidLoaded) {
                 return _buildCard(context, state.covidModel);
@@ -113,5 +167,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildLoading() => const Center(child: CircularProgressIndicator());
+  Widget _buildLoading() => const Center(
+      child: RiveAnimation.network(
+          'https://public.rive.app/community/runtime-files/113-173-loading-book.riv',
+          fit: BoxFit.scaleDown));
 }

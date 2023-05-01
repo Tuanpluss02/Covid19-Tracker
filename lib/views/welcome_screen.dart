@@ -73,10 +73,11 @@ class WelcomePage extends StatelessWidget {
                         ),
                         child: IconButton(
                           onPressed: () {
-                            Navigator.push(
+                            Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HomePage()));
+                                    builder: (context) => const HomePage()),
+                                (route) => false);
                           },
                           icon: const Icon(
                             Icons.arrow_forward,
