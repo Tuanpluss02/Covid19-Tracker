@@ -1,3 +1,4 @@
+import 'package:covid19_tracker/generated/l10n.dart';
 import 'package:covid19_tracker/views/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,7 +36,8 @@ class WelcomePage extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(left: 30, top: 30),
                   child: Text(
-                    'Be Aware\nStay Healthy',
+                    // 'Be Aware\nStay Healthy',
+                    S.of(context).slogan,
                     style: GoogleFonts.questrial(
                       fontSize: 38,
                     ),
@@ -44,7 +46,8 @@ class WelcomePage extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(left: 30, top: 30),
                   child: Text(
-                    'Welcome to COVID-19 information portal.',
+                    // 'Welcome to COVID-19 information portal.',
+                    S.of(context).welcomeText,
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                     ),
@@ -57,7 +60,7 @@ class WelcomePage extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        'GET STARTED',
+                        S.of(context).getStarted,
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

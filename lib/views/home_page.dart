@@ -1,5 +1,6 @@
 import 'package:covid19_tracker/bloc/covid_bloc/covid_bloc.dart';
 import 'package:covid19_tracker/bloc/language_bloc/language_bloc.dart';
+import 'package:covid19_tracker/generated/l10n.dart';
 import 'package:covid19_tracker/model/covid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,8 +35,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Covid-19 Tracker',
-            style: TextStyle(color: Colors.black, fontSize: 20)),
+        title: Text(S.of(context).appTitle,
+            style: const TextStyle(color: Colors.black, fontSize: 20)),
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [

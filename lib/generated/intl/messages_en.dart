@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "appTitle": MessageLookupByLibrary.simpleMessage("COVID-19 Tracker"),
         "getStarted": MessageLookupByLibrary.simpleMessage("GET STARTED"),
         "slogan":
             MessageLookupByLibrary.simpleMessage("Be Aware\nStay Healthy"),

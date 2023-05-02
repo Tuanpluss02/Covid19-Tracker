@@ -1,11 +1,17 @@
-import 'package:covid19_tracker/bloc/language_bloc/language_bloc.dart';
 import 'package:covid19_tracker/generated/l10n.dart';
 import 'package:covid19_tracker/views/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+var language = const Locale('en', 'US');
+Future<void> main() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final String? lang = prefs.getString('lang');
+  if (lang != null) {
+    language =
+        (lang == 'en') ? const Locale('en', 'US') : const Locale('vi', 'VN');
+  }
   runApp(const MyApp());
 }
 
@@ -14,32 +20,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LanguageBloc(),
-      child: BlocListener<LanguageBloc, LanguageState>(
-        listener: (context, state) {
-          if (state is LanguageChanged) {
-            debugPrint('Language changed to ${state.locale} in main ');
-            S.load(state.locale);
-          }
-        },
-        child: MaterialApp(
-          locale: const Locale('en', 'US'),
-          localizationsDelegates: const [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          debugShowCheckedModeBanner: false,
-          title: 'Covid-19 Tracker',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: const WelcomePage(),
-        ),
+    return MaterialApp(
+      locale: language,
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      debugShowCheckedModeBanner: false,
+      title: 'Covid-19 Tracker',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: const WelcomePage(),
     );
   }
 }

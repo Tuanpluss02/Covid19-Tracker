@@ -79,6 +79,16 @@ class S {
       args: [],
     );
   }
+
+  /// `COVID-19 Tracker`
+  String get appTitle {
+    return Intl.message(
+      'COVID-19 Tracker',
+      name: 'appTitle',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

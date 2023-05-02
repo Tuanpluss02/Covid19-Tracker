@@ -22,10 +22,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "getStarted": MessageLookupByLibrary.simpleMessage("GET STARTED"),
+        "appTitle": MessageLookupByLibrary.simpleMessage("Thông tin COVID-19"),
+        "getStarted": MessageLookupByLibrary.simpleMessage("BẮT ĐẦU"),
         "slogan":
-            MessageLookupByLibrary.simpleMessage("Be Aware\nStay Healthy"),
+            MessageLookupByLibrary.simpleMessage("Hãy cảnh giác\nGiữ sức khỏe"),
         "welcomeText": MessageLookupByLibrary.simpleMessage(
-            "Welcome to COVID-19 information portal.")
+            "Chào mừng bạn đến với cổng thông tin COVID-19.")
       };
 }

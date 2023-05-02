@@ -1,5 +1,6 @@
 {
     "welcomeText" : "Welcome to COVID-19 information portal.",
     "slogan" : "Be Aware\nStay Healthy",
-    "getStarted" : "GET STARTED"
+    "getStarted" : "GET STARTED",
+    "appTitle" : "COVID-19 Tracker"
 }

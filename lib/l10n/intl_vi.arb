@@ -1,5 +1,6 @@
 {
-    "welcomeText" : "Welcome to COVID-19 information portal.",
-    "slogan" : "Be Aware\nStay Healthy",
-    "getStarted" : "GET STARTED"
+    "welcomeText" : "Chào mừng bạn đến với cổng thông tin COVID-19.",
+    "slogan" : "Hãy cảnh giác\nGiữ sức khỏe",
+    "getStarted" : "BẮT ĐẦU",
+    "appTitle" : "Thông tin COVID-19"
 }
