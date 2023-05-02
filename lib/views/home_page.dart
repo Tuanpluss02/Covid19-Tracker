@@ -46,7 +46,9 @@ class _HomePageState extends State<HomePage> {
                 if (state is LanguageChanged) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Language changed to ${state.locale}'),
+                      content: Text(state.locale == const Locale('en', 'US')
+                          ? 'Language changed to English'
+                          : 'Đã chuyển ngôn ngữ sang Tiếng Việt'),
                     ),
                   );
                 }
@@ -87,8 +89,8 @@ class _HomePageState extends State<HomePage> {
                       label: Text(
                         state is LanguageChanged
                             ? state.locale.languageCode == 'en'
-                                ? 'Tiếng Việt'
-                                : 'English'
+                                ? 'English'
+                                : 'Tiếng Việt'
                             : 'English',
                         style: const TextStyle(color: Colors.black),
                       ));
