@@ -18,10 +18,10 @@ class MyApp extends StatelessWidget {
       create: (context) => LanguageBloc(),
       child: BlocListener<LanguageBloc, LanguageState>(
         listener: (context, state) {
-          // if (state is LanguageChanged) {
-          debugPrint('Language changed to ${state.locale} in main ');
-          S.load(state.locale);
-          // }
+          if (state is LanguageChanged) {
+            debugPrint('Language changed to ${state.locale} in main ');
+            S.load(state.locale);
+          }
         },
         child: MaterialApp(
           locale: const Locale('en', 'US'),

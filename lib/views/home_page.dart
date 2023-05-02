@@ -15,11 +15,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final languageBloc = LanguageBloc();
   final CovidBloc _covidBloc = CovidBloc();
-  var selectedLanguage = 'English';
   @override
   void initState() {
     _covidBloc.add(FetchCovid());
-    languageBloc.add(const ChangeLanguageToEn());
+    languageBloc.add(ChangeLanguageEn());
     super.initState();
   }
 
@@ -56,17 +55,30 @@ class _HomePageState extends State<HomePage> {
                 builder: (context, state) {
                   return TextButton.icon(
                       onPressed: () {
-                        debugPrint(state.toString());
+                        debugPrint('Language is $state');
+                        debugPrint('Language is ${state.props}');
                         if (state is LanguageInitial) {
-                          debugPrint(state.locale.languageCode.toString());
                           if (state.locale.languageCode == 'en') {
-                            languageBloc.add(const ChangeLanguageToVi());
+                            context
+                                .read<LanguageBloc>()
+                                .add(ChangeLanguageVi());
                           } else {
-                            languageBloc.add(const ChangeLanguageToEn());
+                            context
+                                .read<LanguageBloc>()
+                                .add(ChangeLanguageEn());
                           }
                         }
-                        // languageBloc
-                        //     .add(const ChangeLanguage(Locale('vi', 'VN')));
+                        if (state is LanguageChanged) {
+                          if (state.locale.languageCode == 'en') {
+                            context
+                                .read<LanguageBloc>()
+                                .add(ChangeLanguageVi());
+                          } else {
+                            context
+                                .read<LanguageBloc>()
+                                .add(ChangeLanguageEn());
+                          }
+                        }
                       },
                       icon: const Icon(
                         Icons.language,
@@ -108,6 +120,7 @@ class _HomePageState extends State<HomePage> {
           },
           child: BlocBuilder<CovidBloc, CovidState>(
             builder: (context, state) {
+              debugPrint('state: $state');
               if (state is CovidInitial || state is CovidLoading) {
                 return _buildLoading();
               } else if (state is CovidLoaded) {

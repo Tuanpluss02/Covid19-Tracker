@@ -1,16 +1,11 @@
 part of 'language_bloc.dart';
 
 abstract class LanguageEvent extends Equatable {
-  final Locale locale;
-  const LanguageEvent(this.locale);
+  const LanguageEvent();
   @override
-  List<Object> get props => [locale];
+  List<Object> get props => [];
 }
 
-class ChangeLanguageToVi extends LanguageEvent {
-  const ChangeLanguageToVi() : super(const Locale('vi', 'VN'));
-}
+class ChangeLanguageVi extends LanguageEvent {}
 
-class ChangeLanguageToEn extends LanguageEvent {
-  const ChangeLanguageToEn() : super(const Locale('en', 'US'));
-}
+class ChangeLanguageEn extends LanguageEvent {}

@@ -7,13 +7,21 @@ part 'language_state.dart';
 
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   LanguageBloc() : super(const LanguageInitial(Locale('en', 'US'))) {
-    on<ChangeLanguageToVi>((event, emit) {
-      debugPrint('Language changed to ${event.locale}');
-      emit(LanguageChanged(event.locale));
+    on<ChangeLanguageVi>((event, emit) {
+      try {
+        debugPrint('Language changed to Vi $state');
+        emit(const LanguageChanged(Locale('vi', 'VN')));
+      } catch (e) {
+        debugPrint(e.toString());
+      }
     });
-    on<ChangeLanguageToEn>((event, emit) {
-      debugPrint('Language changed to ${event.locale}');
-      emit(LanguageChanged(event.locale));
+    on<ChangeLanguageEn>((event, emit) {
+      try {
+        debugPrint('Language changed to En $state');
+        emit(const LanguageChanged(Locale('en', 'US')));
+      } catch (e) {
+        debugPrint(e.toString());
+      }
     });
   }
 }
